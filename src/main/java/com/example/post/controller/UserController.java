@@ -46,12 +46,12 @@ public class UserController {
         // 모델에 사용자 정보 추가
         model.addAttribute("user", user);
         // 뷰 페이지 반환
-        return "user/view_user_details"; // user/create/view.html
+        return "user/select/selectById"; // user/create/view.html
     }
 
     @GetMapping("/select/all")
     public String showSelectAllUser(Model model) {
         model.addAttribute("users", userService.getAllUsers());
-        return "user/select_all_user"; // user-list.html
+        return "user/select/selectAll"; // user-list.html
     }
 }
