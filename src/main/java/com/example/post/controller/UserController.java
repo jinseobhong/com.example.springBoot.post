@@ -18,7 +18,7 @@ public class UserController {
     // TODO : 회원 가입 뷰 구현
     @GetMapping("/create")
     public String showCreateForm(Model model) {
-        return "user/create/createUser"; // createUser.html
+        return "user/create/createUser"; // user/create/createUser.html
     }
 
     @PostMapping("/create")
@@ -30,7 +30,7 @@ public class UserController {
         } catch (Exception e) {
             // 실패 시 에러 메시지와 함께 회원가입 페이지로 다시 이동
             model.addAttribute("statusMessage", "회원가입에 실패했습니다. 다시 시도해주세요.");
-            return "user/create/createUser"; // create.html로 이동
+            return "user/create/createUser"; // user/create/createUser.html로 이동
         }
     }
 
@@ -46,12 +46,12 @@ public class UserController {
         // 모델에 사용자 정보 추가
         model.addAttribute("user", user);
         // 뷰 페이지 반환
-        return "user/select/selectById"; // user/create/view.html
+        return "user/select/selectById"; // user/select/selectById.html
     }
 
     @GetMapping("/select/all")
     public String showSelectAllUser(Model model) {
         model.addAttribute("users", userService.getAllUsers());
-        return "user/select/selectAll"; // user-list.html
+        return "user/select/selectAll"; // user/select/selectAll.html
     }
 }
