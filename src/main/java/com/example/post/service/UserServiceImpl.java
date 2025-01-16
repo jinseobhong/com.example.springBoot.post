@@ -1,10 +1,12 @@
 package com.example.post.service;
 
+import com.example.post.exception.UserNotFoundException;
 import com.example.post.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -17,13 +19,14 @@ public class UserServiceImpl implements UserService {
         userList.add(user);
     }
 
-    @Override
-    public User getUser(Long id) {
-        // id가 1부터 시작한다고 가정하고, 0-based 인덱스로 변환
+    // 사용자 조회 메서드 (Optional을 사용하여 사용자 존재 여부 체크)
+    public Optional<User> getUser(Long id) {
+        // id가 유효한 범위 내에 있는지 확인
         if (id < 1 || id > userList.size()) {
-            throw new IllegalArgumentException("유효하지 않은 사용자 ID 입니다.");
+            return Optional.empty(); // 사용자 없음
         }
-        return userList.get(Math.toIntExact(id) - 1); // id를 0-based 인덱스로 조정
+        // 사용자 리스트에서 0-based 인덱스로 사용자 반환
+        return Optional.of(userList.get(Math.toIntExact(id) - 1)); // 0-based index
     }
 
     @Override

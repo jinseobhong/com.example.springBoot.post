@@ -1,5 +1,6 @@
 package com.example.post.controller;
 
+import com.example.post.exception.UserNotFoundException;
 import com.example.post.model.User;
 import com.example.post.service.UserService;
 import com.example.post.service.UserServiceImpl;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RequestMapping(value = "/user")
 @Controller
@@ -41,11 +44,10 @@ public class UserController {
 
     @GetMapping("/select/{id}")
     public String showSelectUser(@PathVariable(name = "id") Long id, Model model) {
-        // 서비스에서 사용자 조회
-        User user = userService.getUser(id);
+        // 서비스에서 사용자 조회 (존재하지 않을 경우 예외 던짐)
+        User user = userService.getUser(id).orElseThrow(() -> new UserNotFoundException("사용자를 찾을 수 없습니다.", "유효한 ID를 가진 user를 찾을 수 없습니다.", "유효한 ID를 가진 회원을 입력 해주십시오."));
         // 모델에 사용자 정보 추가
         model.addAttribute("user", user);
-        // 뷰 페이지 반환
         return "user/select/selectById"; // user/select/selectById.html
     }
 
