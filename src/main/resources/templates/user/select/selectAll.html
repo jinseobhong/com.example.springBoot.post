@@ -22,8 +22,8 @@
         </thead>
         <tbody>
         <!-- 회원 목록을 반복 출력 -->
-        <tr th:each="user, iterStat : ${users}">
-            <td th:text="${iterStat.count}"></td>
+        <tr th:each="user, userStat : ${users}">
+            <td th:text="${userStat.count}"></td>
             <td>
                 <a class="text-decoration-none"
                    th:href="@{/user/select/{id}(id=${user.id})}"
