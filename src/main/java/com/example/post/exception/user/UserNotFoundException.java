@@ -1,4 +1,6 @@
-package com.example.post.exception;
+package com.example.post.exception.user;
+
+import com.example.post.exception.DefaultException;
 
 public class UserNotFoundException extends DefaultException {
     public UserNotFoundException(String message) {
